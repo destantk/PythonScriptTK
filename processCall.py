@@ -1,9 +1,19 @@
 import subprocess
 
-cmd = "git --version"
+file = open("gitCommand", "r")
 
-return_data = subprocess.call(cmd, True)
-if return_data == 0:
-    print('returned data:', return_data)
-else:
-    print('returned data:', return_data)
+
+def runShell(runnedScript):
+    return subprocess.call(runnedScript, True)
+
+
+for line in file:
+    line = line.replace('\n', '')
+    if not line.startswith('-') and len(line) > 1:
+        return_data = runShell(line)
+        if return_data == 0:
+            print("OK", line)
+        else:
+            print("NO", line)
+
+file.close()
